@@ -12,27 +12,35 @@ const MyGrid = () => {
     const [gridColumnApi, setGridColumnApi] = useState(null);
 
     const dataContext = React.useContext(DataContext);
-
+    function myCustomSumFunction(values) {
+        var sum = 0;
+        values.forEach( function(value) {sum += Number(value);} );
+        return sum;
+    }
     const [columnDefs, setColumnDefs] = useState([
-        { field: 'athlete', minWidth: 150 },
-        { field: 'age', maxWidth: 90 },
-        { field: 'country', minWidth: 150 },
-        { field: 'year', maxWidth: 90 },
-        { field: 'date', minWidth: 150 },
-        { field: 'sport', minWidth: 150 },
-        { field: 'gold' },
-        { field: 'silver' },
-        { field: 'bronze' },
-        { field: 'total' }
+      { field: 'ID', maxWidth: 80 },
+        { field: 'Sale Account', minWidth: 100 },
+        { field: 'Customer Name', minWidth: 150 },
+        { field: 'Satus', maxWidth: 150 },
+        { field: 'Bandwidth', aggFunc: myCustomSumFunction, minWidth: 100 },
+        { field: 'Update', aggFunc: myCustomSumFunction },
+        { field: 'Total Bandwidth', aggFunc: myCustomSumFunction },
+        { field: 'Business Type', maxWidth: 200  },
+        { field: 'IP', maxWidth: 80 },
+        { field: 'OA Serial'},
+        { field: 'Service Date', maxWidth: 150 },
+        { field: 'Remark', maxWidth: 150 }
     ]);
 
     const onGridReady = (params) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
     };
-
+console.log(dataContext.orFilteredRowData.ID)
     return (
+
         <div style={{ width: '100%', height: '100vh' }}>
+          <div><pre>{dataContext.orFilteredRowData.ID}</pre></div>
             <div
                 id="myGrid"
                 style={{
@@ -56,29 +64,25 @@ const MyGrid = () => {
                     rowData={dataContext.orFilteredRowData}
                     immutableData={true}
                     getRowNodeId={data => data.id}
+                    groupIncludeFooter={true}
+                    groupIncludeTotalFooter={true}
+                    animateRows={true}
                     sideBar={{
-                        toolPanels: [
-                            {
-                                id: 'or-filtering',
-                                labelDefault: 'OR-filtering',
-                                labelKey: 'or-filtering',
-                                iconKey: 'filter',
-                                toolPanel: 'orFilterPanel',
-                                toolPanelParams: {
-                                    columnDefs: columnDefs,
-                                }
-                            },
-                            {
-                                id: 'and-filtering',
-                                labelDefault: 'AND-filtering',
-                                labelKey: 'and-filtering',
-                                iconKey: 'filter',
-                                toolPanel: 'agFiltersToolPanel',
-                            },
+                      toolPanels: [
+                          {
+                              id: 'or-filtering',
+                              labelDefault: 'OR-filtering',
+                              labelKey: 'or-filtering',
+                              iconKey: 'filter',
+                              toolPanel: 'orFilterPanel',
+                              toolPanelParams: {
+                                  columnDefs: columnDefs,
+                              }
+                          }
 
-                        ],
-                        defaultToolPanel: 'or-filtering',
-                    }}
+                      ],
+                      defaultToolPanel: 'or-filtering',
+                  }}
                     frameworkComponents={{ orFilterPanel: OrFilterPanel }}
                 />
             </div>
