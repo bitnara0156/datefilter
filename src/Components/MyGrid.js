@@ -3,7 +3,6 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-
 import OrFilterPanel from './OrFilterPanel';
 import DataContext from '../DataContext.js';
 
@@ -18,25 +17,25 @@ const MyGrid = () => {
         return sum;
     }
     const [columnDefs, setColumnDefs] = useState([
-      { field: 'ID', maxWidth: 80 },
+      { field: 'ID', filter: false },
         { field: 'Sale Account', minWidth: 100 },
-        { field: 'Customer Name', minWidth: 150 },
+        { field: 'Customer Name', minWidth: 350,filter: false },
         { field: 'Satus', maxWidth: 150 },
-        { field: 'Bandwidth', aggFunc: myCustomSumFunction, minWidth: 100 },
-        { field: 'Update', aggFunc: myCustomSumFunction },
-        { field: 'Total Bandwidth', aggFunc: myCustomSumFunction },
+        { field: 'Bandwidth', aggFunc: myCustomSumFunction, minWidth: 100,filter: false },
+        { field: 'Update', aggFunc: myCustomSumFunction,filter: false },
+        { field: 'Total Bandwidth', aggFunc: myCustomSumFunction,filter: false },
         { field: 'Business Type', maxWidth: 200  },
-        { field: 'IP', maxWidth: 80 },
+        { field: 'IP', maxWidth: 80,filter: false },
         { field: 'OA Serial'},
         { field: 'Service Date', maxWidth: 150 },
-        { field: 'Remark', maxWidth: 150 }
+        { field: 'Remark', maxWidth: 450,filter: false }
     ]);
 
     const onGridReady = (params) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
     };
-console.log(dataContext.orFilteredRowData.ID)
+
     return (
 
         <div style={{ width: '100%', height: '100vh' }}>
