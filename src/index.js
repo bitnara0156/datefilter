@@ -11,7 +11,7 @@ const App = () => {
   <div style={{color: "white", float: "left",  background: "#1c4587",width:"225px", fontSize:"18px"
 }}>{rowData.New}</div>);
   useEffect(() => {
-    fetch('https://sheet.best/api/sheets/83ac0bfd-7c8c-45df-97c5-f3e3a65c99e2')
+    fetch('https://sheet.best/api/sheets/821bcdc1-174d-48a0-898e-0eab354d1bb0')
       .then((res) => res.json())
       .then((data) => {
         data.forEach((row, ind) => row.id = ind);
